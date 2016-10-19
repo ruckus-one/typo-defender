@@ -1,3 +1,4 @@
+var VERSION = "$$_VERSION_INFO_$$";
 window.onload = function () {
     var game = new Phaser.Game(800, 600, Phaser.AUTO, '',
         {
