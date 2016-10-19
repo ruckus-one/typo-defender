@@ -7,7 +7,8 @@ var gulp  = require('gulp'),
 gulp.task('default', function() {
     gutil.log('Just building your amazing game together... [he paid me for saying that]');
 
-    gulp.src(['src/index.html'])
+    gulp.src(['src/game.html'])
+        .pipe(gp_rename('index.html'))
         .pipe(gulp.dest('dist'));
 
     gulp.src(['src/resources/**/*'])

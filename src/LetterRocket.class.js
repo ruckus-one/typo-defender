@@ -6,6 +6,8 @@ function Explosion(phaserGame, x,y, spriteName){
     var _animation = _sprite.animations.add('default', [0,1,2,3,4,5,6,7,8,9,10,11,12]);
     _sprite.animations.play('default', 10);
 
+    phaserGame.world.sendToBack(_sprite);
+
     _animation.onComplete.add(function () {
         _sprite.destroy();
     }, this);
@@ -31,6 +33,9 @@ function LetterRocket(phaserGame, index, letter){
     _letter.strokeThickness = 4;
     _letter.font = 'Bubblegum Sans';
     _letter.fontSize = 20;
+
+    _game.world.sendToBack(_letter);
+    _game.world.sendToBack(_sprite);
 
     var _update = function () {
         if(!_destroyed) {

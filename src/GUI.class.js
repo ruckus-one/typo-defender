@@ -5,6 +5,13 @@ function GUI(phaserGame, cannon){
     var _currentWordLabel = [];
     var _currentWord = '';
 
+    var _topBar = _game.add.image(0,0, 'ui_darkgreen');
+    _topBar.scale.set(_game.world.width/4, 20);
+
+    var _panel = _game.add.image(_game.world.width*0.5,0, 'ui_panel');
+    _panel.anchor.set(0.5, 0);
+    _panel.scale.set(2);
+
     var _healthBar = _game.add.tileSprite(32, 48, 2, 16, 'health');
     _healthBar.scale.x = 100;
     var _healthLabel = _game.add.text(64, 32, 'Health');
