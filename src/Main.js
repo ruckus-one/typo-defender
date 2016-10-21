@@ -1,6 +1,6 @@
 var VERSION = "$$_VERSION_INFO_$$";
 window.onload = function () {
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '',
+    var game = new Phaser.Game(1920, 1080, Phaser.AUTO, '',
         {
             preload: preload,
             create: create,
@@ -47,23 +47,32 @@ window.onload = function () {
         game.load.image('ui_panel', 'resources/images/ui_panel.png', 4,4);
         game.load.image('health', 'resources/images/health.png', 4,16);
         game.load.image('rocket', 'resources/images/rocket.png', 32,32);
-        game.load.image('cannon', 'resources/images/cannon.png', 64,32);
+        game.load.image('city', 'resources/images/city.png', 960,306);
         game.load.spritesheet('explosion', 'resources/images/explosion.png', 96,96);
 
-        game.stage.backgroundColor = '#333';
+        game.stage.backgroundColor = '#485870';
 
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     }
 
     function create() {
         enemy = new WordEnemy(game);
-        cannon = new Cannon(game, 'cannon', enemy);
+        cannon = new Cannon(game, 'city', enemy);
         gui = new GUI(game, cannon);
+
+        var city = game.add.tileSprite(0, game.world.height - 306, game.world.width, 306, 'city');
+        game.world.sendToBack(city);
+        game.physics.arcade.enable(city);
+        city.body.immovable = true;
+
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
     }
 
     function update() {
         enemy.update();
-        enemy.collide(cannon);
+        enemy.check(cannon);
         gui.update(enemy.getLetters());
     }
 };

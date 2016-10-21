@@ -6,7 +6,7 @@ function GUI(phaserGame, cannon){
     var _currentWord = '';
 
     var _topBar = _game.add.image(0,0, 'ui_darkgreen');
-    _topBar.scale.set(_game.world.width/4, 20);
+    _topBar.scale.set(_game.world.width/4, _game.world.height*0.025);
 
     var _panel = _game.add.image(_game.world.width*0.5,0, 'ui_panel');
     _panel.anchor.set(0.5, 0);

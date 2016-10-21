@@ -1,8 +1,5 @@
 function Cannon(phaserGame, spriteName, enemy){
     var _game = phaserGame;
-    var _sprite = _game.add.sprite(_game.world.width*0.5 - 16, _game.world.height - 32, spriteName);
-    _game.physics.arcade.enable(_sprite);
-    _sprite.body.immovable = true;
 
     var _enemy = enemy;
     var _last = false;
@@ -16,19 +13,16 @@ function Cannon(phaserGame, spriteName, enemy){
         }
     };
     var _keyDown = function(e){
-        if(e.key === _last)
+        var key = e.key.toLowerCase();
+        if(key === _last)
             return;
 
-        _score += _enemy.hit(e.key);
-        _last = e.key;
+        _score += _enemy.hit(key);
+        _last = key;
     };
 
     _game.input.keyboard.onDownCallback = _keyDown;
     _game.input.keyboard.onUpCallback = _keyUp;
-
-    var _getBody = function(){
-        return _sprite;
-    };
 
     var _hit = function(){
         _health -= 5;
@@ -39,7 +33,6 @@ function Cannon(phaserGame, spriteName, enemy){
     };
 
     return {
-        getBody: _getBody,
         hit: _hit,
         getScore: function(){ return _score; }
     }
