@@ -1,3 +1,18 @@
+
+function GUIHelper(){}
+GUIHelper.formatNumber = function(val){
+    var formatted = '';
+
+    var stringValue = val.toString();
+    var len = stringValue.length;
+    for(var c=len; c>0; c--){
+        var pos = (len - c);
+        formatted = stringValue[c-1] + (c === len || pos % 3?'':',') + formatted;
+    }
+
+    return formatted;
+};
+
 function GUI(phaserGame, cannon, enemy, groupLayer){
     var _game = phaserGame;
     var _cannon = cannon;
@@ -54,7 +69,7 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
         _currentWordLabel[letterIndex].stroke = destroyed?'#060':'#600';
         _currentWordLabel[letterIndex].fill = '#def';
 
-        _scoreLabel.text = _cannon.getScore()+'\nScore';
+        _scoreLabel.text = GUIHelper.formatNumber(_cannon.getScore())+'\nScore';
     };
     _game.onCustomEvent('letter', _onLetterChange);
 
@@ -63,7 +78,7 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     };
     _game.onCustomEvent('hit', _onHealthChange);
 
-    var _blinking = function(){
+    var _noobAnimations = function(){
         var cooldownProgress = _enemy.getCooldown();
         if(!cooldownProgress || cooldownProgress <= 0)
             return;
@@ -94,7 +109,7 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
 
     var _update = function(currentWord){
 
-        _blinking();
+        _noobAnimations();
 
         if(_currentWord === currentWord)
             return;

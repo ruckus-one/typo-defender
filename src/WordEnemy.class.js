@@ -1,6 +1,6 @@
 function WordEnemy(phaserGame, layerGroup){
 
-    var _dictionary = ['peaceful','daily','coat','ordinary','macho','colour','resolute','boring','flag','bustling','tramp','eight','shelter','account','number','whine','grease','art','jelly','obeisant','homeless','kill','paltry','prefer','lie','prevent','cracker','many','helpless','grandiose','repair','kind','legal','position','adamant','insurance','entertaining','rate','ring','smoke','sore','soothe','wriggle','obedient','gifted','accessible','psychedelic','spotty','devilish','helpful','tax','tidy','office','cute','profit','curl','wobble','difficult','labored','slip','expansion','doubt','few','pin','digestion','stare','gentle','snotty','untidy','spotted','land','bore','ritzy','alive','money','precede','ruin','light','interest','bee','trucks','blue','disastrous','sudden','unbiased','silent','rock','representative','slap','enchanted','twist','building','queue','cough','line','war','salty','dime','debonair','reminiscent'];
+    var _dictionary = ['peaceful','daily','coat','ordinary','macho','colour','resolute','boring','flag','bustling','tramp','eight','shelter','account','number','whine','grease','art','jelly','obeisant','homeless','kill','paltry','prefer','lie','prevent','cracker','many','helpless','grandiose','repair','kind','legal','position','adamant','insurance','entertaining','rate','ring','smoke','sore','soothe','wriggle','obedient','gifted','accessible','psychedelic','spotty','devilish','helpful','tax','tidy','office','cute','profit','curl','wobble','difficult','labored','slip','expansion','doubt','few','pin','digestion','stare','gentle','snotty','untidy','spotted','land','bore','ritzy','alive','money','precede','ruin','light','interest','bee','trucks','blue','disastrous','sudden','unbiased','silent','rock','slap','enchanted','twist','building','queue','cough','line','war','salty','dime','debonair','reminiscent'];
 
     var _game = phaserGame;
     var _layerGroup = layerGroup;
@@ -69,7 +69,7 @@ function WordEnemy(phaserGame, layerGroup){
 
             _letters[idx].destroy();
             _game.triggerCustomEvent('letter', idx, true);
-            return 10;
+            return 150;
         }
 
         return 0;
