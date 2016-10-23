@@ -33,7 +33,7 @@ window.onload = function () {
         //  'active' means all requested fonts have finished loading
         //  We set a 1 second delay before calling 'createText'.
         //  For some reason if we don't the browser cannot render the text the first time it's created.
-        active: function() { game.time.events.add(Phaser.Timer.SECOND, function(){}, this); },
+        active: function() { game.time.events.add(Phaser.Timer.SECOND, textLoaded, this); },
 
         //  The Google Fonts we want to load (specify as many as you like in the array)
         google: {
@@ -60,7 +60,6 @@ window.onload = function () {
     function create() {
         enemy = new WordEnemy(game);
         cannon = new Cannon(game, 'city', enemy);
-        gui = new GUI(game, cannon);
 
         var city = game.add.tileSprite(0, game.world.height - 306, game.world.width, 306, 'city');
         game.world.sendToBack(city);
@@ -72,9 +71,15 @@ window.onload = function () {
         this.scale.pageAlignVertically = true;
     }
 
+    function textLoaded(){
+        gui = new GUI(game, cannon, enemy);
+    }
+
     function update() {
         enemy.update();
         enemy.check(cannon);
-        gui.update(enemy.getLetters());
+
+        if(gui)
+            gui.update(enemy.getLetters());
     }
 };

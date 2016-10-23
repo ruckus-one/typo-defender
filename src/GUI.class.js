@@ -1,6 +1,7 @@
-function GUI(phaserGame, cannon){
+function GUI(phaserGame, cannon, enemy){
     var _game = phaserGame;
     var _cannon = cannon;
+    var _enemy = enemy;
 
     var _currentWordLabel = [];
     var _currentWord = '';
@@ -52,7 +53,39 @@ function GUI(phaserGame, cannon){
     };
     _game.onCustomEvent('hit', _onHealthChange);
 
+    var _blinking = function(){
+        var cooldownProgress = _enemy.getCooldown();
+        if(!cooldownProgress || cooldownProgress <= 0)
+            return;
+
+        if(cooldownProgress <= 0.2){
+            for(var idx in _currentWordLabel)
+                if(_currentWordLabel.hasOwnProperty(idx)) {
+                    _currentWordLabel[idx].fill = '#def';
+                }
+        }
+        else if(cooldownProgress <= 0.6){
+            for(var idx in _currentWordLabel)
+                if(_currentWordLabel.hasOwnProperty(idx))
+                    _currentWordLabel[idx].fill = '#111';
+        }
+        else if(cooldownProgress <= 1.0){
+            for(var idx in _currentWordLabel)
+                if(_currentWordLabel.hasOwnProperty(idx))
+                    _currentWordLabel[idx].fill = '#def';
+        }
+        else if(cooldownProgress <= 1.4){
+            for(var idx in _currentWordLabel)
+                if(_currentWordLabel.hasOwnProperty(idx)) {
+                    _currentWordLabel[idx].fill = '#111';
+                }
+        }
+    };
+
     var _update = function(currentWord){
+
+        _blinking();
+
         if(_currentWord === currentWord)
             return;
 
