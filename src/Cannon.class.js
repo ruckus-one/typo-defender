@@ -1,4 +1,4 @@
-function Cannon(phaserGame, spriteName, enemy){
+function Cannon(phaserGame, enemy){
     var _game = phaserGame;
 
     var _enemy = enemy;

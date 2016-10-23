@@ -1,14 +1,15 @@
-function GUI(phaserGame, cannon, enemy){
+function GUI(phaserGame, cannon, enemy, groupLayer){
     var _game = phaserGame;
     var _cannon = cannon;
     var _enemy = enemy;
+    var _groupLayer = groupLayer;
 
     var _currentWordLabel = [];
     var _currentWord = '';
 
 
-    var uiBar1 = _game.add.tileSprite(0,32, _game.world.width,16, 'ui_bar');
-    var uiBar2 = _game.add.tileSprite(0,64, _game.world.width,16, 'ui_bar');
+    var _uiBar1 = _game.add.tileSprite(0,32, _game.world.width,16, 'ui_bar');
+    var _uiBar2 = _game.add.tileSprite(0,64, _game.world.width,16, 'ui_bar');
 
     var _panel = _game.add.image(_game.world.width*0.5,0, 'ui_panel');
     _panel.anchor.set(0.5, -0.1);
@@ -39,6 +40,15 @@ function GUI(phaserGame, cannon, enemy){
     _scoreLabel.font = 'VT323';
     _scoreLabel.fontSize = 48;
     _scoreLabel.align = 'right';
+
+    _groupLayer.add(_uiBar1);
+    _groupLayer.add(_uiBar2);
+    _groupLayer.add(_panel);
+    _groupLayer.add(_healthBg);
+    _groupLayer.add(_healthBar);
+    _groupLayer.add(_healthLabel);
+    _groupLayer.add(_scoreBg);
+    _groupLayer.add(_scoreLabel);
 
     var _onLetterChange = function(letterIndex, destroyed){
         _currentWordLabel[letterIndex].stroke = destroyed?'#060':'#600';

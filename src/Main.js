@@ -28,6 +28,10 @@ window.onload = function () {
         enemy,
         gui;
 
+    var layer1,
+        layer2,
+        layer3;
+
     WebFontConfig = {
 
         //  'active' means all requested fonts have finished loading
@@ -58,10 +62,16 @@ window.onload = function () {
     }
 
     function create() {
-        enemy = new WordEnemy(game);
-        cannon = new Cannon(game, 'city', enemy);
+        layer1 = game.add.group();
+        layer2 = game.add.group();
+        layer3 = game.add.group();
+
+        enemy = new WordEnemy(game, layer2);
+        cannon = new Cannon(game, enemy, layer1);
 
         var city = game.add.tileSprite(0, game.world.height - 306, game.world.width, 306, 'city');
+        layer1.add(city);
+
         game.world.sendToBack(city);
         game.physics.arcade.enable(city);
         city.body.immovable = true;
@@ -72,7 +82,7 @@ window.onload = function () {
     }
 
     function textLoaded(){
-        gui = new GUI(game, cannon, enemy);
+        gui = new GUI(game, cannon, enemy, layer3);
     }
 
     function update() {

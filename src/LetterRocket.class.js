@@ -1,23 +1,26 @@
-function Explosion(phaserGame, x,y, spriteName){
+function Explosion(phaserGame, x,y, spriteName, layerGroup){
     var _sprite = phaserGame.add.sprite(x,y, spriteName || 'explosion');
     _sprite.position.x -= _sprite.width*0.5;
     _sprite.position.y -= _sprite.height*0.5;
 
     var _animation = _sprite.animations.add('default', [0,1,2,3,4,5,6,7,8,9,10,11,12]);
     _sprite.animations.play('default', 10);
-    
+
     _animation.onComplete.add(function () {
         _sprite.destroy();
     }, this);
+
+    layerGroup.add(_sprite);
 }
 
-function LetterRocket(phaserGame, index, letter){
+function LetterRocket(phaserGame, index, letter, layerGroup){
     var _game = phaserGame;
 
     var width = _game.world.width;
     var _sprite = _game.add.sprite(-width*0.75 + width*1.75*Math.random(), -48*index, 'rocket');
     _game.physics.arcade.enable(_sprite);
 
+    var _layerGroup = layerGroup;
     var _destroyed = false;
 
     var target = {x: _game.world.width*0.5 + 16, y: _game.world.height-32};
@@ -33,6 +36,9 @@ function LetterRocket(phaserGame, index, letter){
     _letter.font = 'VT323';
     _letter.fontSize = 40;
 
+    _layerGroup.add(_sprite);
+    _layerGroup.add(_letter);
+
     var _update = function () {
         if(!_destroyed) {
             _letter.x = _sprite.body.x;
@@ -45,7 +51,7 @@ function LetterRocket(phaserGame, index, letter){
         _letter.destroy();
         _destroyed = true;
 
-        new Explosion(_game, _sprite.position.x, _sprite.position.y);
+        new Explosion(_game, _sprite.position.x, _sprite.position.y, 'explosion', _layerGroup);
     };
 
     var _getSprite = function () {
