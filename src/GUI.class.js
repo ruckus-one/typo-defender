@@ -30,13 +30,13 @@ function GUI(phaserGame, cannon){
     _scoreBg.scale.set(0.5);
     _scoreBg.anchor.set(1, 0);
 
-    var _scoreLabel = _game.add.text(_game.world.width - 128, 64+16, '0\nScore');
-    _scoreLabel.anchor.set(0.25, 0.52);
+    var _scoreLabel = _game.add.text(_game.world.width - 128, 18, '0\nScore');
+    _scoreLabel.anchor.set(0.25, 0);
     _scoreLabel.fill = '#eee';
     _scoreLabel.stroke = '#000';
     _scoreLabel.strokeThickness = 6;
     _scoreLabel.font = 'VT323';
-    _scoreLabel.fontSize = 40;
+    _scoreLabel.fontSize = 48;
     _scoreLabel.align = 'right';
 
     var _onLetterChange = function(letterIndex, destroyed){
