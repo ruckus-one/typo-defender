@@ -1,4 +1,28 @@
 
+function Loader(phaserGame, spriteName){
+    var _sprite = phaserGame.add.sprite(phaserGame.world.width*0.5, phaserGame.world.height*0.5, spriteName);
+    _sprite.anchor.setTo(0.5, 0.5);
+    _sprite.scale.set(2);
+
+    var _loading = phaserGame.add.text(phaserGame.world.width*0.5, phaserGame.world.height*0.5 - 96, '...loading...');
+    _loading.anchor.set(0.5);
+    _loading.fill = '#eee';
+    _loading.stroke = '#000';
+    _loading.strokeThickness = 6;
+    _loading.font = 'VT323';
+    _loading.fontSize = 48;
+
+    return{
+        update: function() {
+            _sprite.angle += 10;
+        },
+        destroy: function(){
+            _sprite.destroy();
+            _loading.destroy();
+        }
+    };
+}
+
 function GUIHelper(){}
 GUIHelper.formatNumber = function(val){
     var formatted = '';

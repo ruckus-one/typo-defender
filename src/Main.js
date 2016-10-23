@@ -24,6 +24,8 @@ window.onload = function () {
                 this.customEvents[eventKey][idx](arg1, arg2, arg3);
     };
 
+    var loader;
+
     var cannon,
         enemy,
         gui;
@@ -62,6 +64,8 @@ window.onload = function () {
     }
 
     function create() {
+        loader = new Loader(game, 'rocket');
+        
         layer1 = game.add.group();
         layer2 = game.add.group();
         layer3 = game.add.group();
@@ -82,10 +86,18 @@ window.onload = function () {
     }
 
     function textLoaded(){
+        loader.destroy();
+        loader = null;
+
         gui = new GUI(game, cannon, enemy, layer3);
     }
 
     function update() {
+        if(loader) {
+            loader.update();
+            return;
+        }
+        
         enemy.update();
         enemy.check(cannon);
 
