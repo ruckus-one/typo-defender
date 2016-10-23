@@ -43,7 +43,7 @@ function WordEnemy(phaserGame){
         }
     };
 
-    var _check = function () {
+    var _check = function (otherBody) {
         for(var idx in _letters){
             if(!_letters.hasOwnProperty(idx) || _letters[idx].isDestroyed())
                 continue;
@@ -51,6 +51,7 @@ function WordEnemy(phaserGame){
             var letter = _letters[idx];
             if(letter.getSprite().position.y > _game.world.height - 160){
                 letter.destroy();
+                otherBody.hit();
                 _game.triggerCustomEvent('letter', idx, false);
             }
         }

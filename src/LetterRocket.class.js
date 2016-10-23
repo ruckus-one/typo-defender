@@ -22,15 +22,16 @@ function LetterRocket(phaserGame, index, letter){
 
     var target = {x: _game.world.width*0.5 + 16, y: _game.world.height-32};
     _sprite.body.rotation = _sprite.rotation = Math.atan2(target.y - _sprite.body.y, target.x - _sprite.body.x);
-    _game.physics.arcade.velocityFromRotation(_sprite.body.rotation, 200, _sprite.body.velocity);
+    _sprite.scale.set(2);
+    _game.physics.arcade.velocityFromRotation(_sprite.body.rotation, 300, _sprite.body.velocity);
 
     var _letter = _game.add.text(0,0, letter);
     _letter.anchor.set(0.5);
     _letter.fill = '#def';
     _letter.stroke = '#600';
     _letter.strokeThickness = 4;
-    _letter.font = 'Bubblegum Sans';
-    _letter.fontSize = 20;
+    _letter.font = 'VT323';
+    _letter.fontSize = 40;
 
     var _update = function () {
         if(!_destroyed) {

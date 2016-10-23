@@ -37,7 +37,7 @@ window.onload = function () {
 
         //  The Google Fonts we want to load (specify as many as you like in the array)
         google: {
-            families: ['Bubblegum Sans']
+            families: ['VT323']
         }
 
     };
@@ -45,7 +45,9 @@ window.onload = function () {
     function preload() {
         game.load.image('ui_darkgreen', 'resources/images/ui_darkgreen.png', 4,4);
         game.load.image('ui_panel', 'resources/images/ui_panel.png', 4,4);
-        game.load.image('health', 'resources/images/health.png', 4,16);
+        game.load.image('ui_health', 'resources/images/ui_health.png', 512,128);
+        game.load.image('ui_bar', 'resources/images/ui_bar.png', 96,16);
+        game.load.image('health', 'resources/images/health.png', 24,16);
         game.load.image('rocket', 'resources/images/rocket.png', 32,32);
         game.load.image('city', 'resources/images/city.png', 960,306);
         game.load.spritesheet('explosion', 'resources/images/explosion.png', 96,96);
