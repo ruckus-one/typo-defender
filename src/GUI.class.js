@@ -91,13 +91,13 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
 
     var _mobileButtons = [];
     var _mobileButtonsAmount = 2;
-    var _mobileStep = _game.world.width / _mobileButtonsAmount;
     for(var c=0; c<_mobileButtonsAmount; c++){
 
         // modified to test two buttons only
-        var btn = _game.add.sprite((1-c)*64 + c*(_game.world.width - 256 - 64), _game.world.height - 256 - 32, 'mobile_button');
+        var btn = _game.add.sprite((1-c)*192 + c*(_game.world.width - 128 - 64), _game.world.height - 128 - 80, 'mobile_button');
         btn.inputEnabled = true;
-        var label = _game.add.text(btn.position.x + 128, btn.position.y + 128, '?');
+        btn.anchor.set(0.5);
+        var label = _game.add.text(btn.position.x, btn.position.y, '?');
         label.anchor.set(0.5);
         label.fill = '#eee';
         label.stroke = '#000';
@@ -108,8 +108,25 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     }
 
 
-    var _onButtonTap = function(e){
-        var hit = _cannon.shoot(e.data);
+    var _onButtonDown = function(sprite){
+        var hit = _cannon.shoot(sprite.data);
+
+        for(var i=0; i<_mobileButtons.length; i++){
+            if(_mobileButtons[i].label.text === sprite.data){
+                _mobileButtons[i].sprite.scale.set(0.9);
+                _mobileButtons[i].label.scale.set(0.9);
+                _mobileButtons[i].label.fill = (hit?'#060':'#600');
+            }
+        }
+    };
+
+    var _onButtonUp = function(sprite){
+
+        for(var i=0; i<_mobileButtons.length; i++){
+            _mobileButtons[i].sprite.scale.set(1.0);
+            _mobileButtons[i].label.scale.set(1.0);
+            _mobileButtons[i].label.fill = '#eee';
+        }
     };
 
     var _shuffleMobileButtons = function(){
@@ -146,7 +163,8 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
             var char = (remainingLetters.length === 0 ? '?' : randomLetters[i]);
             _mobileButtons[i].label.text = char;
             _mobileButtons[i].sprite.data = char;
-            _mobileButtons[i].sprite.events.onInputDown.add(_onButtonTap, this);
+            _mobileButtons[i].sprite.events.onInputDown.add(_onButtonDown, this);
+            _mobileButtons[i].sprite.events.onInputUp.add(_onButtonUp, this);
         }
     };
 
