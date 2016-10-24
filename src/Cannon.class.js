@@ -12,13 +12,19 @@ function Cannon(phaserGame, enemy){
             _last = false;
         }
     };
-    var _keyDown = function(e){
-        var key = e.key.toLowerCase();
+
+    var _shoot = function(key){
         if(key === _last)
             return;
 
-        _score += _enemy.hit(key);
+        var points = _enemy.hit(key);
+        _score += points;
         _last = key;
+        return (points > 0);
+    };
+
+    var _keyDown = function(e){
+        _shoot(e.key.toLowerCase());
     };
 
     _game.input.keyboard.onDownCallback = _keyDown;
@@ -34,6 +40,7 @@ function Cannon(phaserGame, enemy){
 
     return {
         hit: _hit,
-        getScore: function(){ return _score; }
+        getScore: function(){ return _score; },
+        shoot: _shoot
     }
 }

@@ -94,6 +94,7 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     var _mobileStep = _game.world.width / _mobileButtonsAmount;
     for(var c=0; c<_mobileButtonsAmount; c++){
         var btn = _game.add.sprite(_mobileStep*0.5 + _mobileStep*c - 65, _game.world.height - 156, 'mobile_button');
+        btn.inputEnabled = true;
         var label = _game.add.text(btn.position.x + 65, btn.position.y + 65, '?');
         label.anchor.set(0.5);
         label.fill = '#eee';
@@ -105,8 +106,10 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     }
 
 
-    var _test = function(){
-        console.log('test');
+    var _onButtonTap = function(e){
+        var hit = _cannon.shoot(e.data);
+
+        console.log(hit);
     };
 
     var _shuffleMobileButtons = function(){
@@ -132,16 +135,18 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
                 isValid = true;
         }
 
-        if(!isValid){
-            var injectIndex = parseInt(Math.random()*randomLetters.length);
-            var remainingIndex = parseInt(Math.random()*remainingLetters.length);
+        if(!isValid && remainingLetters.length > 0) {
+            var injectIndex = parseInt(Math.random() * randomLetters.length);
+            var remainingIndex = parseInt(Math.random() * remainingLetters.length);
 
             randomLetters[injectIndex] = remainingLetters[remainingIndex];
         }
 
         for(var i=0; i<_mobileButtons.length; i++){
-            _mobileButtons[i].label.text = randomLetters[i];
-            _mobileButtons[i].sprite.events.onInputDown.add(_test, this);
+            var char = (remainingLetters.length === 0 ? '?' : randomLetters[i]);
+            _mobileButtons[i].label.text = char;
+            _mobileButtons[i].sprite.data = char;
+            _mobileButtons[i].sprite.events.onInputDown.add(_onButtonTap, this);
         }
     };
 
