@@ -7,8 +7,8 @@ function Cannon(phaserGame, enemy){
     var _health = 100;
     var _score = 0;
 
-    var _keyUp = function(e) {
-        if(e.key === _last){
+    var _keyUp = function(e, mobile) {
+        if(e.key === _last || mobile){
             _last = false;
         }
     };
@@ -41,6 +41,7 @@ function Cannon(phaserGame, enemy){
     return {
         hit: _hit,
         getScore: function(){ return _score; },
-        shoot: _shoot
+        shoot: _shoot,
+        keyUp: _keyUp
     }
 }

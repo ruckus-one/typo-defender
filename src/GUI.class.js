@@ -126,12 +126,14 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     };
 
     var _onButtonUp = function(sprite){
-
         for(var i=0; i<_mobileButtons.length; i++){
             _mobileButtons[i].sprite.scale.set(1.0);
             _mobileButtons[i].label.scale.set(1.0);
             _mobileButtons[i].label.fill = '#eee';
         }
+
+        // this is to trick the input
+        _cannon.keyUp({key: sprite.data}, true);
     };
 
     var _shuffleMobileButtons = function(){
