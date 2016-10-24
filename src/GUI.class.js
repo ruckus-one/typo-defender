@@ -90,26 +90,26 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     _groupLayer.add(_scoreLabel);
 
     var _mobileButtons = [];
-    var _mobileButtonsAmount = 3;
+    var _mobileButtonsAmount = 2;
     var _mobileStep = _game.world.width / _mobileButtonsAmount;
     for(var c=0; c<_mobileButtonsAmount; c++){
-        var btn = _game.add.sprite(_mobileStep*0.5 + _mobileStep*c - 65, _game.world.height - 156, 'mobile_button');
+
+        // modified to test two buttons only
+        var btn = _game.add.sprite((1-c)*64 + c*(_game.world.width - 256 - 64), _game.world.height - 256 - 32, 'mobile_button');
         btn.inputEnabled = true;
-        var label = _game.add.text(btn.position.x + 65, btn.position.y + 65, '?');
+        var label = _game.add.text(btn.position.x + 128, btn.position.y + 128, '?');
         label.anchor.set(0.5);
         label.fill = '#eee';
         label.stroke = '#000';
         label.strokeThickness = 6;
         label.font = 'VT323';
-        label.fontSize = 64;
+        label.fontSize = 128;
         _mobileButtons.push({sprite: btn, label: label});
     }
 
 
     var _onButtonTap = function(e){
         var hit = _cannon.shoot(e.data);
-
-        console.log(hit);
     };
 
     var _shuffleMobileButtons = function(){

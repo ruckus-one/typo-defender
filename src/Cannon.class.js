@@ -15,7 +15,7 @@ function Cannon(phaserGame, enemy){
 
     var _shoot = function(key){
         if(key === _last)
-            return;
+            return false;
 
         var points = _enemy.hit(key);
         _score += points;
