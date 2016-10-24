@@ -89,11 +89,70 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     _groupLayer.add(_scoreBg);
     _groupLayer.add(_scoreLabel);
 
+    var _mobileButtons = [];
+    var _mobileButtonsAmount = 3;
+    var _mobileStep = _game.world.width / _mobileButtonsAmount;
+    for(var c=0; c<_mobileButtonsAmount; c++){
+        var btn = _game.add.sprite(_mobileStep*0.5 + _mobileStep*c - 65, _game.world.height - 156, 'mobile_button');
+        var label = _game.add.text(btn.position.x + 65, btn.position.y + 65, '?');
+        label.anchor.set(0.5);
+        label.fill = '#eee';
+        label.stroke = '#000';
+        label.strokeThickness = 6;
+        label.font = 'VT323';
+        label.fontSize = 64;
+        _mobileButtons.push({sprite: btn, label: label});
+    }
+
+
+    var _test = function(){
+        console.log('test');
+    };
+
+    var _shuffleMobileButtons = function(){
+        var wordLetters = _enemy.getLetters();
+
+        var remainingLetters = [];
+        for(var c=0; c<wordLetters.length; c++){
+            if(wordLetters[c].isDestroyed())
+                continue;
+
+            remainingLetters.push(wordLetters[c].getLetter());
+        }
+
+        var randomLetters = [];
+        var isValid = false;
+
+        for(var c=0; c<_mobileButtonsAmount; c++){
+            var charCode = parseInt(97 + Math.random()*(122-97));
+            var letter = String.fromCharCode(charCode);
+            randomLetters.push(letter);
+
+            if(remainingLetters.indexOf(letter) !== -1)
+                isValid = true;
+        }
+
+        if(!isValid){
+            var injectIndex = parseInt(Math.random()*randomLetters.length);
+            var remainingIndex = parseInt(Math.random()*remainingLetters.length);
+
+            randomLetters[injectIndex] = remainingLetters[remainingIndex];
+        }
+
+        for(var i=0; i<_mobileButtons.length; i++){
+            _mobileButtons[i].label.text = randomLetters[i];
+            _mobileButtons[i].sprite.events.onInputDown.add(_test, this);
+        }
+    };
+
     var _onLetterChange = function(letterIndex, destroyed){
         _currentWordLabel[letterIndex].stroke = destroyed?'#060':'#600';
         _currentWordLabel[letterIndex].fill = '#def';
 
         _scoreLabel.text = GUIHelper.formatNumber(_cannon.getScore())+'\nScore';
+
+        if(destroyed)
+            _shuffleMobileButtons();
     };
     _game.onCustomEvent('letter', _onLetterChange);
 
@@ -155,6 +214,11 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
             letterObject.fontSize = 64;
             _currentWordLabel.push(letterObject);
         }
+
+        if(_currentWord.length < 1)
+            return;
+
+        _shuffleMobileButtons();
     };
 
     return {

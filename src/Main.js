@@ -56,6 +56,7 @@ window.onload = function () {
         game.load.image('health', 'resources/images/health.png', 24,16);
         game.load.image('rocket', 'resources/images/rocket.png', 32,32);
         game.load.image('city', 'resources/images/city.png', 960,306);
+        game.load.image('mobile_button', 'resources/images/mobile_button.png', 130,124);
         game.load.spritesheet('explosion', 'resources/images/explosion.png', 96,96);
 
         game.stage.backgroundColor = '#485870';
@@ -97,7 +98,7 @@ window.onload = function () {
             loader.update();
             return;
         }
-        
+
         enemy.update();
         enemy.check(cannon);
 
