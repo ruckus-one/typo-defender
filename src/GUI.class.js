@@ -63,7 +63,6 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     _healthBg.scale.set(0.5);
 
     var _healthBar = _game.add.tileSprite(31, 32, 230, 35, 'health');
-    //_healthBar.tilePosition.x = 9;
 
     var _healthLabel = _game.add.text(16, 64+16, 'Health');
     _healthLabel.anchor.set(-0.1, 0);
@@ -180,7 +179,15 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
 
         _scoreLabel.text = GUIHelper.formatNumber(_cannon.getScore())+'\nScore';
 
-        if(destroyed)
+        var destroyedFromButtons = false;
+        // when loosing a letter, there might be a need to shuffle buttons
+        if(!destroyed) {
+            for (var i = 0; i < _mobileButtons.length; i++)
+                if (_mobileButtons[i].label.text === _currentWordLabel[letterIndex].text)
+                    destroyedFromButtons = true;
+        }
+
+        if(destroyed || destroyedFromButtons)
             _shuffleMobileButtons();
     };
     _game.onCustomEvent('letter', _onLetterChange);
