@@ -46,9 +46,15 @@ function GUI(phaserGame, cannon, enemy, groupLayer){
     var _currentWordLabel = [];
     var _currentWord = '';
 
-
+    // bars on the top
     var _uiBar1 = _game.add.tileSprite(0,32, _game.world.width,16, 'ui_bar');
     var _uiBar2 = _game.add.tileSprite(0,64, _game.world.width,16, 'ui_bar');
+
+    // bars behind mobile buttons
+    var _uiBar3 = _game.add.tileSprite(0,_game.world.height - 160, 96,16, 'ui_bar');
+    var _uiBar4 = _game.add.tileSprite(_game.world.width - 96, _game.world.height - 160, _game.world.width, 16, 'ui_bar');
+    var _uiBar5 = _game.add.tileSprite(0,_game.world.height - 192, 96,16, 'ui_bar');
+    var _uiBar6 = _game.add.tileSprite(_game.world.width - 96, _game.world.height - 192, _game.world.width, 16, 'ui_bar');
 
     var _panel = _game.add.image(_game.world.width*0.5,0, 'ui_panel');
     _panel.anchor.set(0.5, -0.1);

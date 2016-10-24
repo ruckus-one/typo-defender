@@ -15,6 +15,9 @@ function Explosion(phaserGame, x,y, spriteName, layerGroup){
 
 function LetterRocket(phaserGame, index, letter, layerGroup){
     var _game = phaserGame;
+    var _minimumRocketSpeed = 75;
+    var _startupRocketSpeed = 500;
+    var _rocketSlowDownRatio = 10;
 
     var width = _game.world.width;
     var _sprite = _game.add.sprite(-width*0.75 + width*1.75*Math.random(), -48*index, 'rocket');
@@ -23,10 +26,12 @@ function LetterRocket(phaserGame, index, letter, layerGroup){
     var _layerGroup = layerGroup;
     var _destroyed = false;
 
+    var _speed = _startupRocketSpeed;
+
     var target = {x: _game.world.width*0.5 + 16, y: _game.world.height-32};
     _sprite.body.rotation = _sprite.rotation = Math.atan2(target.y - _sprite.body.y, target.x - _sprite.body.x);
     _sprite.scale.set(2);
-    _game.physics.arcade.velocityFromRotation(_sprite.body.rotation, 300, _sprite.body.velocity);
+    _game.physics.arcade.velocityFromRotation(_sprite.body.rotation, _speed, _sprite.body.velocity);
 
     var _letter = _game.add.text(0,0, letter);
     _letter.anchor.set(0.5);
@@ -41,6 +46,11 @@ function LetterRocket(phaserGame, index, letter, layerGroup){
 
     var _update = function () {
         if(!_destroyed) {
+            if(_speed > _minimumRocketSpeed) {
+                _sprite.rotation = Math.atan2(target.y - _sprite.body.y, target.x - _sprite.body.x);
+                _game.physics.arcade.velocityFromRotation(_sprite.body.rotation, _speed -= _game.time.elapsed/_rocketSlowDownRatio, _sprite.body.velocity);
+            }
+
             _letter.x = _sprite.body.x;
             _letter.y = _sprite.body.y;
         }
