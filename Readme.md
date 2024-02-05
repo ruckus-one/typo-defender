@@ -2,7 +2,7 @@ HTML5 typing game using Phaser.
 
 If for some reasons you wish to run this game locally, run serve.sh from root directory. This will build the game using default gulp task and set up the PHP dev server, so PHP at decent version is required.
 
-http://play.binarforge.com/typo-defender
+[https://play.binarforge.com/typo-defender](https://bforge.co/demo/typo-defender/)
 
 Current version: 0.3.2
  - Added two mobile friendly buttons to pick the letters while not having a keyboard
